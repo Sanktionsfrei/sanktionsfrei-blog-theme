@@ -1,45 +1,36 @@
 {{!< default}}
+{{! The tag above means - insert everything in this file into the {body} of the default.hbs template }}
 
-<header class="blog-header" {{#if author.cover}}style="background-image: url({{author.cover}})"{{/if}}>
+{{! The big featured header }}
+
+{{! Everything inside the #author tags pulls data from the author }}
+{{#author}}
+<section class="inner-author clearfix">
     <div class="vertical">
-        <h1>Posts by {{author.name}}</h1>
+        <div class="inner-author__box">
+            {{#if image}}
+            <figure class="author__image">
+                <div class="img" style="background-image: url({{image}})"><span class="hidden">{{name}}'s Picture</span></div>
+            </figure>
+            {{/if}}
+            <h1 class="author__title">{{name}}</h1>
+            {{#if bio}}
+                <h2 class="author__bio">{{bio}}</h2>
+            {{/if}}
+            <div class="author__meta">
+                {{#if location}}<span class="author__location">{{> pin }}{{location}}</span>{{/if}}
+                {{#if website}}<span class="author__link"><a href="{{website}}">{{> link}}{{website}}</a></span>{{/if}}
+                <span class="author__stats"><i class="icon-stats"></i><div class="pound">#</div>{{plural ../pagination.total empty='No posts' singular='% post' plural='% posts'}}</span>
+            </div>
+        </div>
     </div>
-</header>
+</section>
+{{/author}}
 
-<div class="wrap">
-    <section class="blog-content">
+{{! The main content area on the homepage }}
+<main class="content" role="main">
 
-        {{#foreach posts}}
+    {{! The tag below includes the post loop - partials/loop.hbs }}
+    {{> "loop"}}
 
-        <article class="{{post_class}}">
-            <header class="post-header">
-                <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
-                <section class="post-meta">
-                    <img class="author-img" src="{{author.image}}" alt="Author image" nopin="nopin" />
-                    <span class="author-name">{{author}}</span>
-                    &bull;
-                    <time datetime="{{date format='YYYY-MM-DD'}}">{{date format="D MMM YYYY"}}</time>
-                    <span class="tags">{{tags prefix="• " separator=" "}}</span>
-                </section>
-            </header>
-            <section class="post-excerpt">
-                <p>{{excerpt words="55"}}&hellip;</p>
-            </section>
-            <footer class="more-links">
-                <a class="read-more button-save" href="{{url}}">Read More</a>
-                <div class="right">
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{url absolute="true"}}" data-text="{{title}}" data-via="TryGhost" data-related="TryGhost">Tweet</a>
-                    <div class="fb-like" data-href="{{url absolute="true"}}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-                </div>
-            </footer>
-        </article>
-
-        {{/foreach}}
-
-        {{pagination}}
-
-    </section>
-
-    {{> sidebar}}
-
-</div>
+</main>

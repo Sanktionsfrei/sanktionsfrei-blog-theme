@@ -1,47 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+    {{! Document Settings }}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {{! Page Meta }}
     <title>{{meta_title}}</title>
-    {{> meta}}
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:700,400,200" />
-    <link rel="stylesheet" type="text/css" href="{{asset "css/bloggy.css"}}" />
+    <meta name="description" content="{{meta_description}}" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="{{asset "favicon.ico"}}">
+
+    {{! Styles'n'Scripts }}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/main.css"}}" />
+    <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Roboto:700,300,300italic,700italic' rel='stylesheet'>
+
+    {{! Ghost outputs important style and meta data with this tag }}
     {{ghost_head}}
-  </head>
-  <body class="{{body_class}}">
-    <div id="fb-root"></div>
-    {{> widgets/subscribe-banner}}
-    <header id="global-header" class="global-header navbar">
-      {{navigation}}
-    </header>
-    <main role="main">
-      <div class="page-wrapper">
+</head>
+
+
+{{#if post}}
+<body class="{{body_class}} menu-toggle--posts">
+{{else}}
+<body class="{{body_class}}">
+{{/if}}
+
+
+    {{> browserupgrade}}
+
+
+    {{#if @blog.navigation}}
+        <a class="menu-toggle icon-menu" href="#">
+            <div class="bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <span class="menu-word">Menu</span>
+        </a>
+    {{/if}}
+
+
+    {{navigation}}
+
+    <div class="site-wrapper">
+
+
+        {{! Everything else gets inserted here }}
         {{{body}}}
-        <div class="clearfix"></div>
-      </div>
-    </main>
-    <div class="modal fade" id="blogsubscribe" tabindex="-1" role="dialog" aria-labelledby="Email subscription modal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <header class="modal-header">
-          <h4 class="modal-title">The latest content, once per week.</h4>
-          <a class="modal-close" data-dismiss="modal" aria-hidden="true" href="#"><span class="hidden">Close</span></a>
-        </header>
-        <div class="modal-body">
-          <form id="newsletter_form" action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-            <input id="fieldEmail" type="email" value="" placeholder="Your email address" name="EMAIL" required>
-            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_c6323ba5f5f4afeec2c624d39_0ee0695955" tabindex="-1" value=""></div>
-            <div class="clear"><input type="submit" value="Send me good stuff" name="subscribe" id="newsletter_subscribe" class="button-add wide"></div>
-            <p><strong>Privacy policy:</strong> No spam. No jibber jabber. Unsubscribe any time.</p>
-          </form>
-        </div>
-      </div>
+
     </div>
-  </div>
-    <div class="clearfix"></div>
-    {{> footer}}
+
+
+    {{!-- Footer --}}
+    <footer class="site-footer clearfix">
+        <section class="site-footer__block">
+            <div class="copyright"><a href="http://escritor.ozywuli.com">Escritor</a> &copy; {{date format="YYYY"}} | Proudly published with <a href="https://ghost.org">Ghost</a></div>
+            <div class="madeby">Made by <a href="http://ozywuli.com">Ozy Wu-Li</a></div>
+
+
+        </section>
+    </footer>
+
+    {{! Ghost outputs important scripts and data with this tag }}
     {{ghost_foot}}
-    {{> google-analytics}}
-    {{> share/scripts/twitter}}
-  </body>
+
+
+    {{! The main JavaScript file for Escritor }}
+    <script type="text/javascript" src="{{asset "js/main.js"}}"></script>
+
+
+</body>
 </html>
