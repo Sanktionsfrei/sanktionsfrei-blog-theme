@@ -1,117 +1,117 @@
 {{!< default}}
-
-{{! The comment above "< default" means - insert everything in this file into
-    the {body} of the default.hbs template, which contains our header/footer. }}
-
-{{! Everything inside the #post tags pulls data from the post }}
 {{#post}}
-
-<!-- <header class="main-header post-head {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}">
-</header> -->
-
-<main class="content" role="main">
-    <article class="{{post_class}}">
-
-        <header class="post__header">
-            <h2 class="post__title">{{title}}</h2>
-            <section class="post__meta">
-                <time class="post__date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
-            </section>
-        </header>
-
-{{#if image}}
-        <img src="{{image}}" alt="" class="post__img">
-{{/if}}
-
-        <section class="post__content">
-            {{content}}
-        </section>
-
-<div class="tags">
-{{tags separator=", " prefix="Tagged in: "}}
-</div>
-
-        <section class="share">
-
-            {{> social }}
-
-        </section>
+<header id="{{#if image}}site-head" style="background-image: url({{image}}){{else}}no-cover{{/if}}" class="site-head post-2">
+	<div class="vertical">
+		<div role='banner' class="header_typesome">
+			{{#if @blog.logo}}<a class="logo_typesome" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>{{/if}}
+			<h1 class="blogtitle_typesome">
+			<a title="{{@blog.title}}" href='{{@blog.url}}'>
+			{{{@blog.title}}}
+			</a>
+			</h1>
+		</div>
+        
+	</div>
+    
+</header>
 
 
+<main class="main_typesome" role="main">
+<hr class="pause {{#if image}}remove{{/if}}" />
 
-        <section class="post__author clearfix">
+	<article class="article_typesome">
+	
+		<header class="postheader_typesome">
+			<ul>
+				<li><time class="date_typesome">{{date format='dddd DD MMM YYYY'}}</time></li>
+					{{#if tags}}
+				<li class="posttags_typesome">{{tags  separator=" | "}}</li>
+					{{/if}}
 
-        {{! Everything inside the #author tags pulls data from the author }}
-        {{#author}}
+			</ul>
+		
+			<h1 class="posttitle_typesome">{{title}}</h1>
+	
+		</header>
+	
+		<div class="postcontent_typesome">
+			{{content}}
+		</div>
+	
+		<div class="back_typesome">
+			<p class="go-back"><a class="fa fa-long-arrow-left" href="{{@blog.url}}"><span>Back</span></a></p>
+			<p class="nav"><a class="fa fa-long-arrow-up" href="{{post}}"><span>Back to top</span></a></p>
+		</div>
 
-            {{#if image}}
-            <figure class="author__image">
-                <a class="img" href="{{url}}" style="background-image: url({{image}})"><span class="hidden">{{name}}'s Picture</span></a>
-            </figure>
-            {{/if}}
+   		
+     {{#if author}}
+     <footer class="postfooter_typesome">
+	 
+		  {{! <address> }}
+				{{#if author.image}}
+				<div class="authorimage_typesome" style="background-image: url({{author.image}})"></div>
+				{{/if}}
+				<div class="author_typesome">
+					<ul>
+						<li><h4 class="authorname_typesome"><a href="{{@blog.url}}/author/{{author.slug}}">{{author.name}}</a></h4></li>
+						{{#if author.location}}
+						<li><h5 class="authordata_typesome">{{author.location}}</h5></li>
+						{{/if}}
+						{{#if author.website}}
+						<li><h5 class="authordata_typesome"><a href="{{author.website}}">{{author.website}}</a></h5></li>
+						{{/if}}
+					</ul>
+						<p class="authorbio_typesome">{{author.bio}}</p>
+				</div>
+				
+		
+			
+		<section class="sharepost_typesome">
+				<h4>Share this:</h4>
+				<a class="fa fa-twitter-square" target="_blank" href="http://twitter.com/share?text={{title}}&url={{url absolute="true"}}"><span class="hidden_typesome">Twitter</span></a>
+				<a class="fa fa-facebook-square" target="_blank" href="http://www.facebook.com/sharer.php?u={{url absolute="true"}}"><span class="hidden_typesome">Facebook</span></a>
+				<a class="fa fa-google-plus-square" target="_blank" href="https://plus.google.com/share?url={{url absolute="true"}}"><span class="hidden_typesome">Google+</span></a>
+				
+				
+    	</section>
+       
+		</footer>
+        {{/if}}
+	
+	</article>
+	
+	
+	<div class="disqusbox_typesome">
+		
+		
+		<div id="disqus_thread"><form onsubmit="my.loadDisqus();return false;" class=formBlock><input class="cmd_typesome" type=submit value="Load Comments"></form>
+		</div>
 
+<script>
+    
+    var disqus_shortname = "example"; // required: replace example with your Disqus shortname
 
+    var disqus_url = "{{url absolute="true"}}";
+    var disqus_identifier = '{{id}}';
+    var my = my || {};
 
-
-
-
-            <section class="author__bio">
-                <h4><a href="{{url}}">{{name}}</a></h4>
-
-                {{#if bio}}
-                    <p>{{bio}}</p>
-                {{else}}
-                    <p>Read <a href="{{url}}">more posts</a> by this author.</p>
-                {{/if}}
-                <div class="author__meta">
-                    {{#if location}}<span class="author-location icon-location">{{location}}</span>{{/if}}
-                    {{#if website}}<span class="author-link icon-link"><a href="{{website}}">{{website}}</a></span>{{/if}}
-                </div>
-            </section>
-
-        {{/author}}
-
-
-        </section>
-
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'example'; // required: replace example with your forum shortname
-    var disqus_identifier = '{{post.id}}';
- 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
+    my.loadDisqus = function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+};
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> 
-
-    </article>
-</main>
-
-<aside class="read-next clearfix">
-    {{#next_post}}
-
-    <a class="read-next-story next" href="{{url}}">
-
-        <section class="post">
-            <h2>{{title}}</h2>
-            <p>{{excerpt words="19"}}&hellip;</p>
-        </section>
-    </a>
-    {{/next_post}}
-    {{#prev_post}}
-
-    <a class="read-next-story prev" href="{{url}}">
-        <section class="post">
-            <h2>{{title}}</h2>
-            <p>{{excerpt words="19"}}&hellip;</p>
-        </section>
-    </a>
-    {{/prev_post}}
-</aside>
-
+        
+<noscript>Please enable javascript to <a rel="nofollow" href="http://disqus.com/?ref_noscript">discus this page, powered by Disqus.</a></noscript>
+<style scoped=scoped>
+@media print{
+ .disqusbox{display:none}
+}
+</style>
+</div>	
+	
 {{/post}}
+</main>
+{{> footer}}
