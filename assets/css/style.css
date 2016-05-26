@@ -26,7 +26,7 @@
    ========================================================================== */
 
 @import url(normalize.css);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,700|Noto+Serif&subset=latin,latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,600|Noto+Serif&subset=latin,latin-ext);
 
  /* ==========================================================================
    					1. Basics - Setting up some base styles
@@ -50,7 +50,7 @@ body {
 	
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Open Sans', sans-serif;
-	font-weight: 700;
+	font-weight: 600;
 	text-rendering: optimizelegibility;
 	line-height: 1;
 	}	
@@ -360,7 +360,7 @@ margin on the iframe, cause it breaks stuff. */
 	font-weight: 700;
 	font-size: 4.8rem;
 	color: #fff; 
-	text-shadow: 2px 2px 0px #000;
+	/*text-shadow: 2px 2px 0px #000;*/
 	text-decoration: none;
 	}
  
@@ -369,7 +369,7 @@ margin on the iframe, cause it breaks stuff. */
 	font-size: 1.6rem;
 	color: #eee;
 	line-height: 1.4;
-	text-shadow: 1px 1px 2px #000;
+	/*text-shadow: 1px 1px 2px #000;*/
 	width: 70%;
 	margin: 0 auto;
 	text-rendering: optimizelegibility;
